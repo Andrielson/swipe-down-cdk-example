@@ -1,0 +1,23 @@
+version: '2.4'
+
+services:
+  node:
+    command: ["tail", "-f", "/etc/os-release"]
+    container_name: angular_swipe_down_v8
+    environment:
+      YARN_CACHE_FOLDER: /mnt/yarn-cache
+    image: node:14-alpine
+    ports:
+      - "4200:4200"
+    user: "1000:1000"
+    volumes:
+      - type: bind
+        source: ./
+        target: /usr/local/src/
+      - type: volume
+        source: yarn_cache
+        target: /mnt/yarn-cache
+    working_dir: /usr/local/src/
+
+volumes:
+  yarn_cache:
